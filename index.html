@@ -1,0 +1,2779 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exposé.ai — Swiss Luxury Real Estate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<style>
+:root {
+  --cream: #F7F4EE;
+  --cream-dark: #EDE9E0;
+  --ink: #1A1714;
+  --ink-soft: #4A443C;
+  --ink-muted: #8C8278;
+  --gold: #9D7A3A;
+  --gold-light: #C4A05A;
+  --border: rgba(26,23,20,0.1);
+  --border-strong: rgba(26,23,20,0.2);
+  --white: #FFFFFF;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+
+body {
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  border-bottom: 1px solid var(--border);
+  padding: 18px 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--cream);
+  flex-shrink: 0;
+}
+
+.logo {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 24px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+}
+
+.logo span { color: var(--gold); }
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-tag {
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  border: 1px solid var(--border-strong);
+  padding: 5px 14px;
+  border-radius: 20px;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #4ade80;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.main {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  flex: 1;
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* FORM PANEL */
+.form-panel {
+  border-right: 1px solid var(--border);
+  padding: 28px 32px;
+  overflow-y: auto;
+  background: var(--cream);
+}
+
+.panel-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 26px;
+  font-weight: 300;
+  color: var(--ink);
+  margin-bottom: 5px;
+  line-height: 1.2;
+}
+
+.panel-sub {
+  font-size: 13px;
+  color: var(--ink-muted);
+  margin-bottom: 26px;
+  line-height: 1.5;
+}
+
+.form-section { margin-bottom: 18px; }
+
+.field-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  display: block;
+  margin-bottom: 7px;
+}
+
+.field-input, .field-select, .field-textarea {
+  width: 100%;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 10px 13px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: var(--ink);
+  transition: border-color 0.2s;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.field-input:focus, .field-select:focus, .field-textarea:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(157,122,58,0.08);
+}
+
+.field-textarea {
+  height: 80px;
+  resize: vertical;
+  line-height: 1.55;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.pill-group { display: flex; gap: 7px; flex-wrap: wrap; }
+
+.pill {
+  padding: 7px 14px;
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--ink-soft);
+  background: var(--white);
+  transition: all 0.15s;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.pill:hover { border-color: var(--gold-light); color: var(--ink); }
+
+.pill.active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--cream);
+}
+
+.pill.gold-active {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--white);
+}
+
+.flag { font-size: 14px; }
+
+.gen-btn {
+  width: 100%;
+  background: var(--ink);
+  color: var(--cream);
+  border: none;
+  border-radius: 8px;
+  padding: 14px 24px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  transition: background 0.2s, transform 0.1s;
+  margin-top: 10px;
+}
+
+.gen-btn:hover { background: #2c2722; }
+.gen-btn:active { transform: scale(0.99); }
+.gen-btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+
+.spinner {
+  width: 15px;
+  height: 15px;
+  border: 2px solid rgba(247,244,238,0.3);
+  border-top-color: var(--cream);
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.form-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 22px 0;
+}
+
+/* OUTPUT PANEL */
+.output-panel {
+  padding: 28px 36px;
+  overflow-y: auto;
+  background: var(--cream);
+  display: flex;
+  flex-direction: column;
+}
+
+.empty-state {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 14px;
+}
+
+.empty-icon {
+  width: 60px;
+  height: 60px;
+  border: 1px solid var(--border-strong);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-muted);
+}
+
+.empty-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 22px;
+  font-weight: 300;
+  color: var(--ink-soft);
+}
+
+.empty-desc {
+  font-size: 13px;
+  color: var(--ink-muted);
+  max-width: 300px;
+  line-height: 1.65;
+}
+
+/* Loading */
+.loading-state {
+  flex: 1;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+}
+
+.loading-bar-wrap {
+  width: 220px;
+  height: 2px;
+  background: var(--border);
+  border-radius: 1px;
+  overflow: hidden;
+}
+
+.loading-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  border-radius: 1px;
+  animation: load-sweep 1.8s ease-in-out infinite;
+  transform-origin: left;
+}
+
+@keyframes load-sweep {
+  0%   { width: 0%;  margin-left: 0%; }
+  50%  { width: 55%; margin-left: 25%; }
+  100% { width: 0%;  margin-left: 100%; }
+}
+
+.loading-text {
+  font-size: 13px;
+  color: var(--ink-muted);
+  letter-spacing: 0.02em;
+  transition: opacity 0.3s;
+}
+
+/* Output content */
+.output-content {
+  display: none;
+  flex-direction: column;
+  flex: 1;
+}
+
+.lang-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 28px;
+  gap: 0;
+}
+
+.lang-tab {
+  padding: 11px 18px;
+  font-size: 13px;
+  color: var(--ink-muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+
+.lang-tab:hover { color: var(--ink); }
+
+.lang-tab.active {
+  color: var(--ink);
+  border-bottom-color: var(--gold);
+  font-weight: 500;
+}
+
+/* Exposé text */
+.expose-wrap { flex: 1; }
+
+.expose-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 34px;
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+.expose-subtitle {
+  font-size: 12px;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.expose-rule {
+  width: 36px;
+  height: 1px;
+  background: var(--gold);
+  margin-bottom: 22px;
+}
+
+.expose-body {
+  font-size: 15px;
+  line-height: 1.85;
+  color: var(--ink-soft);
+  white-space: pre-wrap;
+}
+
+/* Action bar */
+.action-bar {
+  display: flex;
+  gap: 10px;
+  margin-top: 28px;
+  padding-top: 22px;
+  border-top: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 18px;
+  border: 1px solid var(--border-strong);
+  border-radius: 7px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: var(--ink-soft);
+  background: var(--white);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.action-btn:hover { border-color: var(--gold-light); color: var(--ink); }
+
+.action-btn.copied {
+  border-color: #16a34a;
+  color: #16a34a;
+}
+
+/* Photo upload */
+.photo-upload-area {
+  border: 1px dashed var(--border-strong);
+  border-radius: 8px;
+  padding: 16px;
+  background: var(--white);
+  transition: border-color 0.2s, background 0.2s;
+  cursor: pointer;
+  position: relative;
+  text-align: center;
+}
+.photo-upload-area.dragover { border-color: var(--gold); background: rgba(157,122,58,0.04); }
+.photo-upload-area input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; }
+.photo-upload-hint { font-size: 12px; color: var(--ink-muted); }
+.photo-upload-hint span { color: var(--gold); font-weight: 500; }
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin-top: 10px;
+}
+.photo-thumb {
+  position: relative;
+  aspect-ratio: 4/3;
+  border-radius: 5px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.photo-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.photo-thumb.main-photo { grid-column: span 3; aspect-ratio: 16/9; }
+.photo-thumb.main-photo::after {
+  content: 'Hauptfoto';
+  position: absolute;
+  bottom: 6px; left: 6px;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: rgba(26,23,20,0.7);
+  color: #fff;
+  padding: 2px 7px;
+  border-radius: 20px;
+}
+.photo-remove {
+  position: absolute;
+  top: 4px; right: 4px;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: rgba(26,23,20,0.65);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px;
+  line-height: 1;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.photo-thumb:hover .photo-remove { opacity: 1; }
+.photo-count { font-size: 11px; color: var(--ink-muted); margin-top: 6px; }
+
+.pdf-photo-main {
+  width: 100%;
+  height: 72mm;
+  object-fit: cover;
+  border-radius: 2mm;
+  margin-bottom: 5mm;
+  display: block;
+}
+.pdf-photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2mm;
+  margin-bottom: 10mm;
+}
+.pdf-photo-grid img {
+  width: 100%;
+  height: 28mm;
+  object-fit: cover;
+  border-radius: 1.5mm;
+  display: block;
+}
+
+/* ─── MODE SWITCHER ─────────────────────────────── */
+.mode-switcher {
+  display: flex;
+  background: var(--cream-dark);
+  border-radius: 8px;
+  padding: 3px;
+  margin-bottom: 18px;
+  border: 1px solid var(--border);
+}
+.mode-tab {
+  flex: 1;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink-muted);
+  cursor: pointer;
+  border-radius: 6px;
+  text-align: center;
+  transition: all 0.2s;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+}
+.mode-tab.active {
+  background: var(--white);
+  color: var(--ink);
+  box-shadow: 0 1px 3px rgba(26,23,20,0.08);
+}
+
+/* ─── TEMPLATES SECTION ─────────────────────────── */
+.templates-section {
+  margin-bottom: 18px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--white);
+  overflow: hidden;
+}
+.templates-header {
+  padding: 10px 14px;
+  display: flex; align-items: center; justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+  font-size: 12px;
+  color: var(--ink-soft);
+  font-weight: 500;
+}
+.templates-header:hover { background: var(--cream-dark); }
+.templates-body {
+  display: none;
+  padding: 6px 10px 10px;
+  border-top: 1px solid var(--border);
+  max-height: 200px;
+  overflow-y: auto;
+}
+.templates-body.open { display: block; }
+.template-item {
+  padding: 7px 10px;
+  margin: 4px 0;
+  font-size: 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: space-between;
+  border: 1px solid transparent;
+  background: var(--cream);
+}
+.template-item:hover { border-color: var(--gold-light); }
+.template-item-name { color: var(--ink); }
+.template-item-del {
+  font-size: 11px; color: var(--ink-muted); cursor: pointer;
+  padding: 2px 6px; border-radius: 4px;
+}
+.template-item-del:hover { color: #991b1b; }
+.no-templates { font-size: 11px; color: var(--ink-muted); padding: 8px 4px; text-align: center; }
+
+/* ─── LOCATION TOGGLE ──────────────────────────── */
+.location-toggle {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 12px;
+  margin-top: 6px;
+  background: var(--cream-dark);
+  border-radius: 6px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 12px;
+  color: var(--ink-soft);
+  transition: background 0.15s;
+}
+.location-toggle:hover { background: rgba(157,122,58,0.08); }
+.location-toggle input { margin: 0; accent-color: var(--gold); }
+.location-toggle .info-icon { font-size: 11px; color: var(--gold); }
+
+/* ─── TRANSLATE MODE ───────────────────────────── */
+.translate-section { display: none; }
+.translate-section.active { display: block; }
+.translate-textarea {
+  width: 100%;
+  min-height: 240px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--white);
+  outline: none;
+  resize: vertical;
+}
+.translate-textarea:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(157,122,58,0.08); }
+
+/* Hide property form in translate mode */
+.exposé-form.translate-mode .property-fields { display: none; }
+.translate-section.hidden { display: none !important; }
+
+/* ─── CONTENT TYPE TABS ─────────────────────────── */
+.content-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+}
+.content-tab {
+  padding: 9px 16px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink-muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  display: flex; align-items: center; gap: 6px;
+  white-space: nowrap;
+  transition: color 0.15s;
+}
+.content-tab:hover { color: var(--ink); }
+.content-tab.active {
+  color: var(--ink);
+  border-bottom-color: var(--gold);
+}
+.content-tab .badge-new {
+  font-size: 9px;
+  background: var(--gold);
+  color: white;
+  padding: 1px 6px;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+/* ─── CONTENT VIEWS ─────────────────────────────── */
+.content-view { display: none; }
+.content-view.active { display: block; }
+
+.empty-content {
+  padding: 50px 20px;
+  text-align: center;
+  border: 1px dashed var(--border-strong);
+  border-radius: 10px;
+  background: var(--white);
+}
+.empty-content-icon { font-size: 28px; margin-bottom: 12px; }
+.empty-content-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.empty-content-desc {
+  font-size: 13px;
+  color: var(--ink-soft);
+  max-width: 360px;
+  margin: 0 auto 18px;
+  line-height: 1.6;
+}
+.empty-content-btn {
+  background: var(--ink);
+  color: var(--cream);
+  border: none;
+  border-radius: 7px;
+  padding: 11px 22px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.empty-content-btn:hover { background: #2c2722; }
+
+/* ─── SOCIAL CARDS ──────────────────────────────── */
+.social-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.social-card {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--white);
+  overflow: hidden;
+}
+.social-card-header {
+  display: flex; align-items: center; gap: 8px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+  background: var(--cream);
+}
+.social-card-icon {
+  width: 26px; height: 26px;
+  border-radius: 7px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px;
+  color: white;
+}
+.ic-insta { background: linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045); }
+.ic-link { background: #0a66c2; }
+.ic-fb { background: #1877f2; }
+.ic-wa { background: #25d366; }
+.social-card-title { font-size: 12px; font-weight: 500; color: var(--ink); }
+.social-card-meta { font-size: 10px; color: var(--ink-muted); margin-left: auto; }
+.social-card-body {
+  padding: 14px;
+  font-size: 12px;
+  color: var(--ink-soft);
+  line-height: 1.65;
+  white-space: pre-wrap;
+  min-height: 110px;
+}
+.social-card-actions {
+  padding: 8px 12px;
+  border-top: 1px solid var(--border);
+  display: flex; justify-content: flex-end;
+}
+.social-copy-btn {
+  font-size: 11px;
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--ink-soft);
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex; align-items: center; gap: 5px;
+}
+.social-copy-btn:hover { border-color: var(--gold-light); color: var(--ink); }
+.social-copy-btn.copied { border-color: #86efac; color: #15803d; }
+
+/* ─── EMAIL CARDS ───────────────────────────────── */
+.email-list { display: flex; flex-direction: column; gap: 10px; }
+.email-card {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--white);
+  overflow: hidden;
+}
+.email-card-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 10px;
+  cursor: pointer;
+  background: var(--cream);
+}
+.email-icon { font-size: 16px; }
+.email-card-title { font-size: 13px; font-weight: 500; color: var(--ink); flex: 1; }
+.email-card-subject {
+  padding: 10px 16px;
+  font-size: 12px;
+  color: var(--ink-muted);
+  border-bottom: 1px solid var(--border);
+}
+.email-card-subject strong { color: var(--ink); font-weight: 500; }
+.email-card-body {
+  padding: 14px 16px;
+  font-size: 12px;
+  color: var(--ink-soft);
+  line-height: 1.7;
+  white-space: pre-wrap;
+}
+.email-card-actions {
+  padding: 8px 12px;
+  border-top: 1px solid var(--border);
+  display: flex; gap: 6px; justify-content: flex-end;
+}
+
+/* ─── LAGE SECTION IN EXPOSÉ ─────────────────────── */
+.expose-lage {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+.expose-lage-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+  display: flex; align-items: center; gap: 6px;
+}
+.expose-lage-body {
+  font-size: 14px;
+  line-height: 1.85;
+  color: var(--ink-soft);
+}
+
+/* PDF Lage */
+.pdf-lage {
+  margin-top: 6mm;
+  padding-top: 5mm;
+  border-top: 0.5px solid rgba(26,23,20,0.15);
+}
+.pdf-lage-label {
+  font-size: 7pt;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #9D7A3A;
+  margin-bottom: 3mm;
+}
+.pdf-lage-body {
+  font-size: 9pt;
+  line-height: 1.8;
+  color: #4A443C;
+}
+
+/* ─── TEMPLATE SAVE MODAL ───────────────────────── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(26,23,20,0.5);
+  z-index: 300;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+}
+.modal-overlay.show { display: flex; }
+.modal {
+  background: var(--cream);
+  border-radius: 14px;
+  padding: 24px;
+  width: 100%;
+  max-width: 380px;
+  box-shadow: 0 20px 60px rgba(26,23,20,0.2);
+}
+.modal-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+.modal-desc {
+  font-size: 12px;
+  color: var(--ink-muted);
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+.modal input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: var(--ink);
+  background: var(--white);
+  outline: none;
+  margin-bottom: 14px;
+}
+.modal input:focus { border-color: var(--gold); }
+.modal-actions { display: flex; gap: 8px; justify-content: flex-end; }
+.modal-btn {
+  padding: 8px 16px;
+  border-radius: 7px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid var(--border-strong);
+  background: transparent;
+  color: var(--ink-soft);
+}
+.modal-btn.primary {
+  background: var(--ink);
+  color: var(--cream);
+  border-color: var(--ink);
+}
+.modal-btn:hover { border-color: var(--ink); }
+
+/* Archive */
+.archive-header-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: var(--ink-soft);
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 7px 14px;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+.archive-header-btn:hover { border-color: var(--gold-light); }
+.archive-count-badge {
+  background: var(--gold);
+  color: white;
+  font-size: 10px;
+  font-weight: 500;
+  padding: 1px 6px;
+  border-radius: 20px;
+  min-width: 18px;
+  text-align: center;
+}
+
+.archive-drawer {
+  position: fixed;
+  top: 0; right: -440px;
+  width: 420px;
+  height: 100vh;
+  background: var(--cream);
+  border-left: 1px solid var(--border);
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  transition: right 0.3s cubic-bezier(0.4,0,0.2,1);
+  box-shadow: -8px 0 32px rgba(26,23,20,0.08);
+}
+.archive-drawer.open { right: 0; }
+
+.archive-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(26,23,20,0.3);
+  z-index: 190;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+.archive-overlay.show { opacity: 1; pointer-events: all; }
+
+.archive-drawer-header {
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  background: var(--cream);
+}
+.archive-drawer-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.archive-close {
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: var(--ink-muted);
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+.archive-close:hover { color: var(--ink); }
+
+.archive-filter-row { display: flex; gap: 6px; }
+.archive-filter {
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  color: var(--ink-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.archive-filter:hover { color: var(--ink); }
+.archive-filter.active { background: var(--ink); border-color: var(--ink); color: var(--cream); }
+
+.archive-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.archive-empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.archive-item {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  background: var(--white);
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.archive-item:hover { border-color: var(--gold-light); box-shadow: 0 2px 12px rgba(157,122,58,0.08); }
+.archive-item-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
+.archive-item-title { font-size: 13px; font-weight: 500; color: var(--ink); line-height: 1.3; }
+.archive-item-meta { font-size: 11px; color: var(--ink-muted); margin-bottom: 8px; }
+.archive-item-bottom { display: flex; align-items: center; justify-content: space-between; }
+.archive-item-langs { display: flex; gap: 4px; }
+.archive-lang-tag { font-size: 10px; padding: 2px 7px; background: var(--cream); border: 1px solid var(--border); border-radius: 10px; color: var(--ink-muted); }
+
+.status-tag {
+  font-size: 10px;
+  font-weight: 500;
+  padding: 3px 9px;
+  border-radius: 20px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.15s;
+}
+.status-entwurf { background: #f1f5f9; color: #64748b; }
+.status-aktiv { background: #d1fae5; color: #065f46; }
+.status-verkauft { background: #fee2e2; color: #991b1b; }
+
+.archive-actions { display: flex; gap: 6px; }
+.archive-action-btn {
+  font-size: 11px;
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: transparent;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex; align-items: center; gap: 4px;
+}
+.archive-action-btn:hover { border-color: var(--gold-light); color: var(--ink); }
+.archive-action-btn.del:hover { border-color: #fecaca; color: #991b1b; }
+
+/* Archive save flash in action bar */
+.save-archive-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 18px;
+  border: 1px solid var(--gold-light);
+  border-radius: 7px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: var(--gold);
+  background: rgba(157,122,58,0.06);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.save-archive-btn:hover { background: rgba(157,122,58,0.12); }
+
+@media (max-width: 820px) {
+  .archive-drawer { width: 100%; right: -100%; }
+  .archive-filter-row { display: none; }
+}
+
+/* Logo upload */
+.logo-upload-area {
+  border: 1px dashed var(--border-strong);
+  border-radius: 8px;
+  padding: 14px;
+  text-align: center;
+  cursor: pointer;
+  background: var(--white);
+  transition: border-color 0.2s;
+  position: relative;
+}
+.logo-upload-area:hover { border-color: var(--gold); }
+.logo-upload-area input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; }
+.logo-upload-label { font-size: 12px; color: var(--ink-muted); }
+.logo-upload-label span { color: var(--gold); font-weight: 500; }
+.logo-preview { max-height: 48px; max-width: 160px; object-fit: contain; display: none; margin: 0 auto; }
+
+/* PDF Template — hidden on screen, used for export */
+#pdf-template {
+  display: none;
+  position: fixed;
+  left: -9999px;
+  top: 0;
+  width: 210mm;
+  background: #F7F4EE;
+  font-family: 'DM Sans', sans-serif;
+  color: #1A1714;
+}
+.pdf-page {
+  padding: 18mm 16mm 14mm;
+  min-height: 297mm;
+  position: relative;
+  background: #F7F4EE;
+}
+.pdf-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 10mm;
+  border-bottom: 0.5px solid rgba(26,23,20,0.2);
+  margin-bottom: 10mm;
+}
+.pdf-logo-img { max-height: 14mm; max-width: 50mm; object-fit: contain; }
+.pdf-logo-text {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 20pt;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: #1A1714;
+}
+.pdf-logo-text span { color: #9D7A3A; }
+.pdf-badge {
+  font-size: 7pt;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8C8278;
+  border: 0.5px solid rgba(26,23,20,0.2);
+  padding: 3px 8px;
+  border-radius: 20px;
+}
+.pdf-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 28pt;
+  font-weight: 400;
+  color: #1A1714;
+  line-height: 1.15;
+  margin-bottom: 4mm;
+}
+.pdf-subtitle {
+  font-size: 8pt;
+  color: #9D7A3A;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 6mm;
+}
+.pdf-rule { width: 10mm; height: 0.5px; background: #9D7A3A; margin-bottom: 8mm; }
+.pdf-body {
+  font-size: 10pt;
+  line-height: 1.85;
+  color: #4A443C;
+  white-space: pre-wrap;
+}
+.pdf-details {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4mm;
+  margin-bottom: 10mm;
+  padding: 5mm;
+  background: rgba(26,23,20,0.03);
+  border-radius: 3mm;
+}
+.pdf-detail-item { text-align: center; }
+.pdf-detail-val { font-size: 11pt; font-weight: 500; color: #1A1714; }
+.pdf-detail-lbl { font-size: 7pt; color: #8C8278; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 1mm; }
+.pdf-footer {
+  position: absolute;
+  bottom: 10mm;
+  left: 16mm;
+  right: 16mm;
+  border-top: 0.5px solid rgba(26,23,20,0.15);
+  padding-top: 4mm;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.pdf-footer-text { font-size: 7pt; color: #8C8278; }
+.pdf-generated { font-size: 7pt; color: #C4A05A; }
+
+/* Inline Editor */
+.expose-title[contenteditable="true"],
+.expose-subtitle[contenteditable="true"],
+.expose-body[contenteditable="true"] {
+  outline: none;
+  border-radius: 5px;
+  transition: background 0.2s, box-shadow 0.2s;
+  cursor: text;
+}
+.expose-title[contenteditable="true"]:hover,
+.expose-subtitle[contenteditable="true"]:hover,
+.expose-body[contenteditable="true"]:hover {
+  background: rgba(157,122,58,0.05);
+}
+.expose-title[contenteditable="true"]:focus,
+.expose-subtitle[contenteditable="true"]:focus,
+.expose-body[contenteditable="true"]:focus {
+  background: rgba(157,122,58,0.07);
+  box-shadow: 0 0 0 2px rgba(157,122,58,0.2);
+  padding: 4px 8px;
+  margin: -4px -8px;
+}
+
+.edit-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.edit-mode-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--ink-muted);
+  cursor: pointer;
+  user-select: none;
+  padding: 5px 12px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--white);
+  transition: all 0.15s;
+}
+.edit-mode-toggle:hover { border-color: var(--gold-light); color: var(--ink); }
+.edit-mode-toggle.active {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--white);
+}
+.edit-toggle-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--ink-muted);
+  transition: background 0.15s;
+}
+.edit-mode-toggle.active .edit-toggle-dot { background: white; }
+
+.quality-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--ink-muted);
+}
+.quality-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #4ade80;
+}
+.saved-flash {
+  font-size: 11px;
+  color: var(--gold);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.saved-flash.show { opacity: 1; }
+
+/* Error */
+.error-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.error-box {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 10px;
+  padding: 18px 22px;
+  font-size: 13px;
+  color: #991b1b;
+  line-height: 1.6;
+  max-width: 400px;
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 820px) {
+  .main { grid-template-columns: 1fr; overflow: visible; }
+  .form-panel { border-right: none; border-bottom: 1px solid var(--border); overflow: visible; }
+  .output-panel { min-height: 60vh; }
+  .header { padding: 14px 20px; }
+  .form-panel, .output-panel { padding: 20px; }
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="logo">exposé<span>.</span>ai</div>
+  <div class="header-right">
+    <button class="archive-header-btn" onclick="toggleArchive()" id="archive-header-btn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 8v13H3V8"/><rect x="1" y="3" width="22" height="5" rx="1"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+      <span>Archiv</span>
+      <span class="archive-count-badge" id="archive-count-badge" style="display:none">0</span>
+    </button>
+    <div class="status-dot" title="KI aktiv"></div>
+    <div class="header-tag">Swiss Luxury Real Estate</div>
+  </div>
+</header>
+
+<!-- Archive drawer -->
+<div class="archive-drawer" id="archive-drawer">
+  <div class="archive-drawer-header">
+    <div class="archive-drawer-title">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 8v13H3V8"/><rect x="1" y="3" width="22" height="5" rx="1"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+      Meine Exposés
+    </div>
+    <div style="display:flex;align-items:center;gap:10px">
+      <div class="archive-filter-row" id="archive-filter-row">
+        <span class="archive-filter active" data-filter="all" onclick="filterArchive(this)">Alle</span>
+        <span class="archive-filter" data-filter="aktiv" onclick="filterArchive(this)">In Vermarktung</span>
+        <span class="archive-filter" data-filter="entwurf" onclick="filterArchive(this)">Entwurf</span>
+        <span class="archive-filter" data-filter="verkauft" onclick="filterArchive(this)">Verkauft</span>
+      </div>
+      <button class="archive-close" onclick="toggleArchive()">✕</button>
+    </div>
+  </div>
+  <div class="archive-list" id="archive-list">
+    <div class="archive-empty" id="archive-empty">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" style="color:var(--ink-muted);margin-bottom:10px"><path d="M21 8v13H3V8"/><rect x="1" y="3" width="22" height="5" rx="1"/></svg>
+      <div style="font-size:13px;color:var(--ink-muted)">Noch keine Exposés gespeichert</div>
+      <div style="font-size:11px;color:var(--ink-muted);margin-top:4px">Generierte Exposés erscheinen automatisch hier</div>
+    </div>
+  </div>
+</div>
+<div class="archive-overlay" id="archive-overlay" onclick="toggleArchive()"></div>
+
+<div class="main">
+
+  <!-- FORM -->
+  <div class="form-panel" id="form-panel">
+    <div class="panel-title">Neues Exposé</div>
+    <div class="panel-sub">Objektdaten eingeben — KI erstellt in Sekunden professionelle Texte.</div>
+
+    <!-- Mode Switcher -->
+    <div class="mode-switcher">
+      <div class="mode-tab active" data-mode="expose" onclick="switchMode('expose')">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Neues Exposé
+      </div>
+      <div class="mode-tab" data-mode="translate" onclick="switchMode('translate')">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 8l6 6"/><path d="M4 14l6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="M22 22l-5-10-5 10"/><path d="M14 18h6"/></svg>
+        Text übersetzen
+      </div>
+    </div>
+
+    <!-- Templates -->
+    <div class="templates-section">
+      <div class="templates-header" onclick="toggleTemplates()">
+        <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-2px;margin-right:6px"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>Meine Vorlagen <span id="templates-count" style="color:var(--ink-muted);font-weight:400"></span></span>
+        <span id="templates-chevron" style="color:var(--ink-muted);font-size:11px">▾</span>
+      </div>
+      <div class="templates-body" id="templates-body">
+        <div class="no-templates" id="no-templates">Speichere ein Exposé als Vorlage, um es später schnell wiederzuverwenden.</div>
+      </div>
+    </div>
+
+    <!-- Translate Mode -->
+    <div class="translate-section" id="translate-section">
+      <div class="form-section">
+        <label class="field-label">Bestehenden Text einfügen</label>
+        <textarea id="f-translate-source" class="translate-textarea" placeholder="Fügen Sie hier Ihren bestehenden Exposé-Text ein. Die KI übersetzt ihn präzise in alle gewählten Sprachen — mit luxuriöser Tonalität und perfekter Anpassung an die Zielgruppe."></textarea>
+      </div>
+    </div>
+
+    <!-- Property fields wrapper -->
+    <div class="property-fields" id="property-fields">
+
+    <div class="form-section">
+      <label class="field-label">Objekttyp</label>
+      <select id="f-type" class="field-select">
+        <option>Penthouse-Wohnung</option>
+        <option>Luxusvilla</option>
+        <option>Herrenhaus / Landgut</option>
+        <option>Stadtpalais</option>
+        <option>Exklusive Eigentumswohnung</option>
+        <option>Chalet</option>
+        <option>Waterfront-Immobilie</option>
+        <option>Historisches Anwesen</option>
+      </select>
+    </div>
+
+    <div class="form-section">
+      <label class="field-label">Standort</label>
+      <input id="f-location" type="text" class="field-input" placeholder="z.B. Zürich Seefeld, Genf Eaux-Vives…" value="Zürich, Seefeld">
+      <label class="location-toggle" for="f-include-lage">
+        <input type="checkbox" id="f-include-lage">
+        <span>KI-Lagebeschreibung einschliessen</span>
+        <span class="info-icon" title="Quartier, ÖV, Schulen, Restaurants, Lebensqualität">ⓘ</span>
+      </label>
+    </div>
+
+    <div class="form-section grid-2">
+      <div>
+        <label class="field-label">Kaufpreis</label>
+        <input id="f-price" type="text" class="field-input" placeholder="CHF 4.2 Mio." value="CHF 4.2 Mio.">
+      </div>
+      <div>
+        <label class="field-label">Wohnfläche</label>
+        <input id="f-size" type="text" class="field-input" placeholder="320 m²" value="320 m²">
+      </div>
+    </div>
+
+    <div class="form-section grid-2">
+      <div>
+        <label class="field-label">Zimmer</label>
+        <input id="f-rooms" type="text" class="field-input" placeholder="5.5" value="5.5">
+      </div>
+      <div>
+        <label class="field-label">Baujahr / Renovation</label>
+        <input id="f-year" type="text" class="field-input" placeholder="2019" value="2019">
+      </div>
+    </div>
+
+    <div class="form-section">
+      <label class="field-label">Highlights & Alleinstellungsmerkmale</label>
+      <textarea id="f-highlights" class="field-textarea" placeholder="z.B. Seesicht, Dachterrasse, Concierge, Privatpool…">Unverbaubare Seesicht, 80 m² Dachterrasse, 24h-Concierge, privater Lift, Marmorbäder, Smart-Home, 3 Garagenplätze, Nähe Opernhaus</textarea>
+    </div>
+
+    </div><!-- /property-fields -->
+
+    <div class="form-divider"></div>
+
+    <div class="form-section">
+      <label class="field-label">Objektfotos (bis zu 20)</label>
+      <div class="photo-upload-area" id="photo-upload-area"
+           ondragover="event.preventDefault();this.classList.add('dragover')"
+           ondragleave="this.classList.remove('dragover')"
+           ondrop="handlePhotoDrop(event)">
+        <input type="file" accept="image/*" multiple id="photo-input" onchange="handlePhotos(event)">
+        <div class="photo-upload-hint" id="photo-upload-hint">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom:4px;color:var(--ink-muted)"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><br>
+          <span>Fotos hochladen</span> oder hierher ziehen<br>JPG, PNG — max. 20 Bilder
+        </div>
+      </div>
+      <div class="photo-grid" id="photo-grid"></div>
+      <div class="photo-count" id="photo-count"></div>
+    </div>
+      <div class="logo-upload-area" id="logo-upload-area">
+        <input type="file" accept="image/*" id="logo-input" onchange="handleLogo(event)">
+        <img id="logo-preview" class="logo-preview" alt="Logo">
+        <div class="logo-upload-label" id="logo-upload-label">
+          <span>Logo hochladen</span> — PNG, JPG, SVG
+        </div>
+      </div>
+
+    <div class="form-section">
+      <label class="field-label">Makler / Agentur Name</label>
+      <input id="f-agent" type="text" class="field-input" placeholder="z.B. Sotheby's International Realty">
+    </div>
+
+    <div class="form-divider"></div>
+
+    <div class="form-section">
+      <label class="field-label">Tonalität</label>
+      <div class="pill-group">
+        <div class="pill gold-active" data-tone="ultra-premium" onclick="selectTone(this)">Ultra-Premium</div>
+        <div class="pill" data-tone="investment" onclick="selectTone(this)">Investment</div>
+        <div class="pill" data-tone="lifestyle" onclick="selectTone(this)">Lifestyle</div>
+        <div class="pill" data-tone="discreet" onclick="selectTone(this)">Diskret</div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <label class="field-label">Sprachen</label>
+      <div class="pill-group">
+        <div class="pill active" data-lang="de" onclick="toggleLang(this)"><span class="flag">🇩🇪</span> Deutsch</div>
+        <div class="pill active" data-lang="en" onclick="toggleLang(this)"><span class="flag">🇬🇧</span> English</div>
+        <div class="pill" data-lang="ar" onclick="toggleLang(this)"><span class="flag">🇦🇪</span> عربي</div>
+        <div class="pill" data-lang="fr" onclick="toggleLang(this)"><span class="flag">🇫🇷</span> Français</div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <label class="field-label">Käufer-Persona</label>
+      <div class="pill-group" id="persona-group">
+        <div class="pill gold-active" data-persona="allgemein" onclick="selectPersona(this)">Allgemein</div>
+        <div class="pill" data-persona="gcc" onclick="selectPersona(this)">🇦🇪 GCC-Investor</div>
+        <div class="pill" data-persona="expat" onclick="selectPersona(this)">✈️ Expat</div>
+        <div class="pill" data-persona="familie" onclick="selectPersona(this)">👨‍👩‍👧 Familie</div>
+        <div class="pill" data-persona="investor" onclick="selectPersona(this)">📈 Investor</div>
+      </div>
+    </div>
+
+    <button class="gen-btn" id="gen-btn" onclick="generate()">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      Exposé generieren
+    </button>
+  </div>
+
+  <!-- OUTPUT -->
+  <div class="output-panel" id="output-panel">
+
+    <div class="empty-state" id="empty-state">
+      <div class="empty-icon">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      </div>
+      <div class="empty-title">Ihr Exposé erscheint hier</div>
+      <div class="empty-desc">Füllen Sie das Formular links aus und klicken Sie auf „Exposé generieren". Die KI erstellt professionelle Texte für alle gewählten Sprachen.</div>
+    </div>
+
+    <div class="loading-state" id="loading-state">
+      <div class="loading-bar-wrap">
+        <div class="loading-bar"></div>
+      </div>
+      <div class="loading-text" id="loading-text">KI analysiert Objektdaten…</div>
+    </div>
+
+    <div class="error-wrap" id="error-wrap" style="display:none">
+      <div class="error-box" id="error-box"></div>
+    </div>
+
+    <div id="demo-banner" style="display:none;align-items:center;gap:10px;background:#fffbeb;border:1px solid #fef3c7;border-radius:8px;padding:10px 16px;margin-bottom:14px;font-size:12px;color:#92400e">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span><strong>Demo-Modus</strong> — Beispieltext, kein API-Key nötig. Editor, PDF und alle Features funktionieren vollständig.</span>
+    </div>
+
+    <div class="output-content" id="output-content">
+
+      <!-- Content Type Tabs -->
+      <div class="content-tabs" id="content-tabs">
+        <div class="content-tab active" data-content="expose" onclick="switchContent('expose')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Exposé
+        </div>
+        <div class="content-tab" data-content="social" onclick="switchContent('social')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          Social Media
+        </div>
+        <div class="content-tab" data-content="emails" onclick="switchContent('emails')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          E-Mails
+        </div>
+      </div>
+
+      <!-- EXPOSÉ View -->
+      <div class="content-view active" id="view-expose">
+        <div class="lang-tabs" id="lang-tabs"></div>
+        <div class="edit-toolbar">
+          <div class="edit-mode-toggle" id="edit-toggle" onclick="toggleEditMode()">
+            <div class="edit-toggle-dot"></div>
+            <span id="edit-toggle-label">Bearbeiten</span>
+          </div>
+          <div class="quality-badge">
+            <div class="quality-dot"></div>
+            <span id="quality-text">Luxus-Niveau</span>
+            <span id="word-count" style="color:var(--ink-muted)"></span>
+            <span class="saved-flash" id="saved-flash">✓ Gespeichert</span>
+          </div>
+        </div>
+        <div class="expose-wrap" id="expose-wrap"></div>
+      </div>
+
+      <!-- SOCIAL View -->
+      <div class="content-view" id="view-social">
+        <div id="social-empty" class="empty-content">
+          <div class="empty-content-icon">📱</div>
+          <div class="empty-content-title">Social Media Posts erstellen</div>
+          <div class="empty-content-desc">Aus den Objektdaten generiert die KI passgenaue Posts für Instagram, LinkedIn, Facebook und WhatsApp — mit Hashtags und optimaler Länge je Platform.</div>
+          <button class="empty-content-btn" onclick="generateSocial()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            Posts generieren
+          </button>
+        </div>
+        <div id="social-loading" style="display:none" class="empty-content">
+          <div class="loading-bar-wrap" style="margin:0 auto 12px"><div class="loading-bar"></div></div>
+          <div class="empty-content-desc" id="social-loading-text">Social Media Posts werden erstellt…</div>
+        </div>
+        <div id="social-results" style="display:none">
+          <div class="social-grid" id="social-grid"></div>
+        </div>
+      </div>
+
+      <!-- EMAILS View -->
+      <div class="content-view" id="view-emails">
+        <div id="emails-empty" class="empty-content">
+          <div class="empty-content-icon">✉️</div>
+          <div class="empty-content-title">E-Mail-Vorlagen erstellen</div>
+          <div class="empty-content-desc">Erstkontakt, Besichtigungseinladung, Follow-Up und Absage — alle E-Mail-Texte fertig zum Versenden. In der aktuell gewählten Exposé-Sprache.</div>
+          <button class="empty-content-btn" onclick="generateEmails()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            E-Mails generieren
+          </button>
+        </div>
+        <div id="emails-loading" style="display:none" class="empty-content">
+          <div class="loading-bar-wrap" style="margin:0 auto 12px"><div class="loading-bar"></div></div>
+          <div class="empty-content-desc">E-Mail-Vorlagen werden erstellt…</div>
+        </div>
+        <div id="emails-results" style="display:none">
+          <div class="email-list" id="email-list"></div>
+        </div>
+      </div>
+      <div class="action-bar">
+        <button class="action-btn" id="copy-btn" onclick="copyText()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Text kopieren
+        </button>
+        <button class="action-btn" id="pdf-btn" onclick="exportPDF()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          PDF exportieren
+        </button>
+        <button class="save-archive-btn" onclick="saveToArchive()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 8v13H3V8"/><rect x="1" y="3" width="22" height="5" rx="1"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+          Im Archiv speichern
+        </button>
+        <button class="action-btn" onclick="openTemplateModal()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg>
+          Als Vorlage speichern
+        </button>
+        <button class="action-btn" onclick="generate()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+          Neu generieren
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- PDF Template -->
+<div id="pdf-template">
+  <div class="pdf-page" id="pdf-page">
+    <div class="pdf-header">
+      <div id="pdf-logo-wrap">
+        <img id="pdf-logo-img" class="pdf-logo-img" style="display:none" alt="Logo">
+        <div class="pdf-logo-text" id="pdf-logo-text">exposé<span>.</span>ai</div>
+      </div>
+      <div class="pdf-badge">Swiss Luxury Real Estate</div>
+    </div>
+    <div class="pdf-details" id="pdf-details"></div>
+    <div id="pdf-photos-main"></div>
+    <div id="pdf-photos-grid"></div>
+    <div class="pdf-title" id="pdf-title"></div>
+    <div class="pdf-subtitle" id="pdf-subtitle"></div>
+    <div class="pdf-rule"></div>
+    <div class="pdf-body" id="pdf-body"></div>
+    <div id="pdf-lage-wrap"></div>
+    <div class="pdf-footer">
+      <div class="pdf-footer-text" id="pdf-agent-footer"></div>
+      <div class="pdf-generated">Erstellt mit exposé.ai</div>
+    </div>
+  </div>
+</div>
+
+<!-- Template Save Modal -->
+<div class="modal-overlay" id="template-modal">
+  <div class="modal">
+    <div class="modal-title">Vorlage speichern</div>
+    <div class="modal-desc">Geben Sie der Vorlage einen Namen, um sie später schnell wiederzuverwenden.</div>
+    <input type="text" id="template-name-input" placeholder="z.B. Penthouse Zürich Seefeld" autocomplete="off">
+    <div class="modal-actions">
+      <button class="modal-btn" onclick="closeTemplateModal()">Abbrechen</button>
+      <button class="modal-btn primary" onclick="saveTemplate()">Speichern</button>
+    </div>
+  </div>
+</div>
+
+<script>
+let selectedLangs = ['de', 'en'];
+let selectedTone = 'ultra-premium';
+let selectedPersona = 'allgemein';
+let results = {};
+let activeLang = 'de';
+let activeContent = 'expose';
+let currentMode = 'expose';
+let includeLage = false;
+let socialResults = null;
+let emailResults = null;
+let logoDataUrl = null;
+let photoDataUrls = [];
+
+// ── MODE SWITCHING ──────────────────────────────────
+function switchMode(mode) {
+  currentMode = mode;
+  document.querySelectorAll('.mode-tab').forEach(t => t.classList.toggle('active', t.dataset.mode === mode));
+  const translateSection = document.getElementById('translate-section');
+  const propertyFields = document.getElementById('property-fields');
+  const panelTitle = document.querySelector('.panel-title');
+  const panelSub = document.querySelector('.panel-sub');
+  const genBtn = document.getElementById('gen-btn');
+
+  if (mode === 'translate') {
+    translateSection.classList.add('active');
+    propertyFields.style.display = 'none';
+    panelTitle.textContent = 'Text übersetzen';
+    panelSub.textContent = 'Bestehenden Text einfügen — KI übersetzt in alle gewählten Sprachen mit Luxus-Tonalität.';
+    genBtn.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 8l6 6"/><path d="M4 14l6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="M22 22l-5-10-5 10"/><path d="M14 18h6"/></svg> Jetzt übersetzen';
+  } else {
+    translateSection.classList.remove('active');
+    propertyFields.style.display = 'block';
+    panelTitle.textContent = 'Neues Exposé';
+    panelSub.textContent = 'Objektdaten eingeben — KI erstellt in Sekunden professionelle Texte.';
+    genBtn.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> Exposé generieren';
+  }
+}
+
+// ── CONTENT TABS ────────────────────────────────────
+function switchContent(content) {
+  activeContent = content;
+  document.querySelectorAll('.content-tab').forEach(t => t.classList.toggle('active', t.dataset.content === content));
+  document.querySelectorAll('.content-view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-' + content).classList.add('active');
+}
+
+// ── TEMPLATES ───────────────────────────────────────
+const TEMPLATES_KEY = 'expose_ai_templates';
+
+function getTemplates() {
+  try { return JSON.parse(localStorage.getItem(TEMPLATES_KEY) || '[]'); } catch { return []; }
+}
+
+function setTemplates(arr) {
+  localStorage.setItem(TEMPLATES_KEY, JSON.stringify(arr));
+  updateTemplatesCount();
+  renderTemplatesList();
+}
+
+function updateTemplatesCount() {
+  const t = getTemplates();
+  document.getElementById('templates-count').textContent = t.length > 0 ? `(${t.length})` : '';
+}
+
+function toggleTemplates() {
+  const body = document.getElementById('templates-body');
+  const chevron = document.getElementById('templates-chevron');
+  const isOpen = body.classList.toggle('open');
+  chevron.textContent = isOpen ? '▴' : '▾';
+  if (isOpen) renderTemplatesList();
+}
+
+function renderTemplatesList() {
+  const body = document.getElementById('templates-body');
+  const items = getTemplates();
+  if (items.length === 0) {
+    body.innerHTML = '<div class="no-templates">Speichere ein Exposé als Vorlage, um es später schnell wiederzuverwenden.</div>';
+    return;
+  }
+  body.innerHTML = items.map(t => `
+    <div class="template-item" onclick="loadTemplate(${t.id})">
+      <span class="template-item-name">${t.name}</span>
+      <span class="template-item-del" onclick="event.stopPropagation();deleteTemplate(${t.id})">✕</span>
+    </div>`).join('');
+}
+
+function openTemplateModal() {
+  document.getElementById('template-modal').classList.add('show');
+  setTimeout(() => document.getElementById('template-name-input').focus(), 100);
+}
+
+function closeTemplateModal() {
+  document.getElementById('template-modal').classList.remove('show');
+  document.getElementById('template-name-input').value = '';
+}
+
+function saveTemplate() {
+  const name = document.getElementById('template-name-input').value.trim();
+  if (!name) return;
+  const templates = getTemplates();
+  templates.unshift({
+    id: Date.now(),
+    name,
+    data: {
+      type: document.getElementById('f-type').value,
+      location: document.getElementById('f-location').value,
+      price: document.getElementById('f-price').value,
+      size: document.getElementById('f-size').value,
+      rooms: document.getElementById('f-rooms').value,
+      year: document.getElementById('f-year').value,
+      highlights: document.getElementById('f-highlights').value,
+      tone: selectedTone,
+      persona: selectedPersona,
+      langs: [...selectedLangs],
+      includeLage: includeLage
+    }
+  });
+  setTemplates(templates);
+  closeTemplateModal();
+}
+
+function loadTemplate(id) {
+  const t = getTemplates().find(x => x.id === id);
+  if (!t) return;
+  const d = t.data;
+  ['type','location','price','size','rooms','year','highlights'].forEach(k => {
+    const el = document.getElementById('f-' + k);
+    if (el && d[k] !== undefined) el.value = d[k];
+  });
+  if (d.tone) {
+    document.querySelectorAll('[data-tone]').forEach(p => p.classList.remove('gold-active','active'));
+    const t2 = document.querySelector(`[data-tone="${d.tone}"]`);
+    if (t2) { t2.classList.add('gold-active'); selectedTone = d.tone; }
+  }
+  if (d.persona) {
+    document.querySelectorAll('[data-persona]').forEach(p => p.classList.remove('gold-active','active'));
+    const p2 = document.querySelector(`[data-persona="${d.persona}"]`);
+    if (p2) { p2.classList.add('gold-active'); selectedPersona = d.persona; }
+  }
+  if (d.langs) {
+    document.querySelectorAll('[data-lang]').forEach(p => p.classList.remove('active'));
+    d.langs.forEach(l => { const el = document.querySelector(`[data-lang="${l}"]`); if (el) el.classList.add('active'); });
+    selectedLangs = d.langs;
+  }
+  if (d.includeLage !== undefined) {
+    document.getElementById('f-include-lage').checked = d.includeLage;
+    includeLage = d.includeLage;
+  }
+  // Close drawer
+  document.getElementById('templates-body').classList.remove('open');
+  document.getElementById('templates-chevron').textContent = '▾';
+  // Flash generate button
+  const btn = document.getElementById('gen-btn');
+  btn.style.background = '#9D7A3A';
+  setTimeout(() => btn.style.background = '', 800);
+}
+
+function deleteTemplate(id) {
+  setTemplates(getTemplates().filter(t => t.id !== id));
+}
+
+// ── SOCIAL MEDIA ────────────────────────────────────
+async function generateSocial() {
+  if (!results[activeLang]) return;
+  document.getElementById('social-empty').style.display = 'none';
+  document.getElementById('social-loading').style.display = 'block';
+  document.getElementById('social-results').style.display = 'none';
+
+  const d = results[activeLang];
+  const langName = { de:'German', en:'English', ar:'Arabic', fr:'French' }[activeLang] || 'German';
+  const type = document.getElementById('f-type').value;
+  const location = document.getElementById('f-location').value;
+  const price = document.getElementById('f-price').value;
+
+  const prompt = `You are a luxury real estate social media expert. Based on this property listing, create social media posts in ${langName}.
+
+Property: ${type} in ${location}, ${price}
+Title: ${d.title}
+Description: ${d.body}
+
+Create 4 different posts. Respond ONLY with valid JSON, no preamble:
+{
+  "instagram": "Caption for Instagram, max 200 words, emoji-rich, 6-8 relevant hashtags at end",
+  "linkedin": "Professional LinkedIn post, ~150 words, no hashtags, formal tone, focuses on investment/lifestyle value",
+  "facebook": "Facebook post, ~120 words, warm engaging tone, 3-4 hashtags",
+  "whatsapp": "WhatsApp short message, max 60 words, personal tone, no hashtags, ends with call to action"
+}`;
+
+  try {
+    const res = await fetch('/api/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1500,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+    const data = await res.json();
+    if (data.error && data.error.message && data.error.message.includes('credit')) {
+      socialResults = getDemoSocial(d, location, price);
+    } else {
+      const raw = (data.content || []).map(b => b.text || '').join('');
+      const match = raw.match(/\{[\s\S]*\}/);
+      socialResults = JSON.parse(match[0]);
+    }
+    renderSocial();
+  } catch (err) {
+    socialResults = getDemoSocial(d, location, price);
+    renderSocial();
+  }
+}
+
+function getDemoSocial(d, location, price) {
+  return {
+    instagram: `✨ EXKLUSIV — ${d.title}\n\n${(d.body||'').split('\n')[0]}\n\nEin Refugium der Extraklasse für anspruchsvollste Käufer. DM für Besichtigung.\n\n#SwissLuxury #${location.replace(/[^a-zA-Z]/g,'')} #LuxuryRealEstate #PenthouseLife #Switzerland #Immobilien #ZurichLiving #LuxuryHomes`,
+    linkedin: `Neu im Portfolio: ${d.title}\n\nEine seltene Gelegenheit in ${location}. ${(d.body||'').split('\n')[0]}\n\nFür interessierte Käufer und Anlageberater stehe ich gerne für ein vertrauliches Gespräch zur Verfügung.\n\n— Diskrete Vermarktung auf Anfrage —`,
+    facebook: `🏡 Neu auf dem Markt: ${d.title}\n\n${(d.body||'').split('\n')[0]}\n\nKontaktieren Sie uns für eine private Besichtigung.\n\n#LuxuryRealEstate #Switzerland #${location.replace(/[^a-zA-Z]/g,'')}`,
+    whatsapp: `Hallo! Ich habe ein neues Objekt das perfekt zu Ihren Suchkriterien passen könnte: ${d.title} in ${location}, ${price}. Soll ich Ihnen das vollständige Exposé senden?`
+  };
+}
+
+function renderSocial() {
+  if (!socialResults) return;
+  document.getElementById('social-loading').style.display = 'none';
+  document.getElementById('social-results').style.display = 'block';
+  const platforms = [
+    { key: 'instagram', name: 'Instagram', icon: '📷', cls: 'ic-insta', meta: 'Max 2200 Z.' },
+    { key: 'linkedin', name: 'LinkedIn', icon: 'in', cls: 'ic-link', meta: 'Professionell' },
+    { key: 'facebook', name: 'Facebook', icon: 'f', cls: 'ic-fb', meta: 'Engaging' },
+    { key: 'whatsapp', name: 'WhatsApp', icon: '💬', cls: 'ic-wa', meta: 'Kurz' }
+  ];
+  document.getElementById('social-grid').innerHTML = platforms.map(p => {
+    const text = socialResults[p.key] || '';
+    return `
+    <div class="social-card">
+      <div class="social-card-header">
+        <div class="social-card-icon ${p.cls}">${p.icon}</div>
+        <div class="social-card-title">${p.name}</div>
+        <div class="social-card-meta">${text.length} Z.</div>
+      </div>
+      <div class="social-card-body">${text}</div>
+      <div class="social-card-actions">
+        <button class="social-copy-btn" onclick="copySocial(this, '${p.key}')">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Kopieren
+        </button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function copySocial(btn, key) {
+  const text = socialResults[key];
+  if (!text) return;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.classList.add('copied');
+    btn.innerHTML = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Kopiert!`;
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.innerHTML = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Kopieren`;
+    }, 2000);
+  });
+}
+
+// ── E-MAILS ─────────────────────────────────────────
+async function generateEmails() {
+  if (!results[activeLang]) return;
+  document.getElementById('emails-empty').style.display = 'none';
+  document.getElementById('emails-loading').style.display = 'block';
+  document.getElementById('emails-results').style.display = 'none';
+
+  const d = results[activeLang];
+  const langName = { de:'German', en:'English', ar:'Arabic', fr:'French' }[activeLang] || 'German';
+  const agent = document.getElementById('f-agent').value || '[Agent Name]';
+  const type = document.getElementById('f-type').value;
+  const location = document.getElementById('f-location').value;
+  const price = document.getElementById('f-price').value;
+
+  const prompt = `You are a luxury real estate communication expert. Write 4 professional email templates in ${langName} for this listing:
+
+Property: ${type} in ${location}, ${price}
+Title: ${d.title}
+Agent: ${agent}
+
+Respond ONLY with valid JSON, no preamble:
+{
+  "erstkontakt": {"subject":"...","body":"..."},
+  "besichtigung": {"subject":"...","body":"..."},
+  "followup": {"subject":"...","body":"..."},
+  "absage": {"subject":"...","body":"..."}
+}
+
+Rules:
+- erstkontakt: First outreach to a qualified buyer, warm but professional, ~100 words
+- besichtigung: Viewing invitation with details placeholders [Datum/Uhrzeit], ~80 words
+- followup: After-viewing follow-up, gentle nudge for decision, ~80 words
+- absage: Professional rejection (e.g. another buyer offered more), respectful, leaves door open for future, ~70 words
+- Use placeholders like [Name] for personalization
+- Body should be ready to send, with greeting and signature using ${agent}`;
+
+  try {
+    const res = await fetch('/api/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 2000,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+    const data = await res.json();
+    if (data.error && data.error.message && data.error.message.includes('credit')) {
+      emailResults = getDemoEmails(d, agent, location, price);
+    } else {
+      const raw = (data.content || []).map(b => b.text || '').join('');
+      const match = raw.match(/\{[\s\S]*\}/);
+      emailResults = JSON.parse(match[0]);
+    }
+    renderEmails();
+  } catch (err) {
+    emailResults = getDemoEmails(d, agent, location, price);
+    renderEmails();
+  }
+}
+
+function getDemoEmails(d, agent, location, price) {
+  return {
+    erstkontakt: {
+      subject: `Exklusives Objekt in ${location} — könnte für Sie interessant sein`,
+      body: `Sehr geehrte/r [Name],\n\nbasierend auf Ihrem Profil habe ich eine Immobilie identifiziert, die Ihren Vorstellungen entsprechen könnte: ${d.title}.\n\nDieses exklusive Objekt in ${location} (${price}) wird derzeit diskret vermarktet. Gerne stelle ich Ihnen das vollständige Exposé zur Verfügung und vereinbare bei Interesse eine private Besichtigung.\n\nFür ein erstes vertrauliches Gespräch stehe ich Ihnen gerne zur Verfügung.\n\nMit freundlichen Grüssen\n${agent}`
+    },
+    besichtigung: {
+      subject: `Besichtigung: ${d.title}`,
+      body: `Sehr geehrte/r [Name],\n\nvielen Dank für Ihr Interesse an ${d.title}. Ich freue mich, Ihnen die Liegenschaft persönlich zeigen zu dürfen.\n\nMein Vorschlag: [Datum] um [Uhrzeit] Uhr. Die Besichtigung dauert ca. 60 Minuten.\n\nBitte bestätigen Sie kurz, ob der Termin passt — oder schlagen Sie eine Alternative vor.\n\nMit freundlichen Grüssen\n${agent}`
+    },
+    followup: {
+      subject: `Ihre Eindrücke zu ${d.title}`,
+      body: `Sehr geehrte/r [Name],\n\nich hoffe, die Besichtigung hat einen guten Eindruck hinterlassen. Gerne möchte ich erfahren, wie Sie das Objekt einschätzen und ob noch offene Fragen bestehen.\n\nFalls Sie Interesse an konkreten nächsten Schritten haben, vereinbare ich gerne ein weiteres Gespräch.\n\nMit freundlichen Grüssen\n${agent}`
+    },
+    absage: {
+      subject: `${d.title} — Update`,
+      body: `Sehr geehrte/r [Name],\n\nich möchte Sie informieren, dass die Liegenschaft ${d.title} kürzlich verkauft wurde. Es freut mich, dass Sie Interesse gezeigt haben.\n\nGerne behalte ich Ihre Suchkriterien im Auge und melde mich, sobald ein passendes Objekt verfügbar wird.\n\nMit freundlichen Grüssen\n${agent}`
+    }
+  };
+}
+
+function renderEmails() {
+  if (!emailResults) return;
+  document.getElementById('emails-loading').style.display = 'none';
+  document.getElementById('emails-results').style.display = 'block';
+  const types = [
+    { key: 'erstkontakt', name: 'Erstkontakt', icon: '👋' },
+    { key: 'besichtigung', name: 'Besichtigungs-Einladung', icon: '📅' },
+    { key: 'followup', name: 'Follow-Up nach Besichtigung', icon: '🔄' },
+    { key: 'absage', name: 'Absage / Update', icon: '📋' }
+  ];
+  document.getElementById('email-list').innerHTML = types.map(t => {
+    const e = emailResults[t.key] || {};
+    return `
+    <div class="email-card">
+      <div class="email-card-header">
+        <span class="email-icon">${t.icon}</span>
+        <span class="email-card-title">${t.name}</span>
+      </div>
+      <div class="email-card-subject"><strong>Betreff:</strong> ${e.subject || ''}</div>
+      <div class="email-card-body">${e.body || ''}</div>
+      <div class="email-card-actions">
+        <button class="social-copy-btn" onclick="copyEmail(this, '${t.key}')">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Kopieren
+        </button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function copyEmail(btn, key) {
+  const e = emailResults[key];
+  if (!e) return;
+  const text = `Betreff: ${e.subject}\n\n${e.body}`;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.classList.add('copied');
+    btn.innerHTML = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Kopiert!`;
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.innerHTML = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Kopieren`;
+    }, 2000);
+  });
+}
+
+// ── ARCHIVE ──────────────────────────────────────────
+const ARCHIVE_KEY = 'expose_ai_archive';
+let currentArchiveFilter = 'all';
+
+function getArchive() {
+  try { return JSON.parse(localStorage.getItem(ARCHIVE_KEY) || '[]'); }
+  catch { return []; }
+}
+
+function saveArchive(items) {
+  localStorage.setItem(ARCHIVE_KEY, JSON.stringify(items));
+  updateArchiveBadge();
+}
+
+function updateArchiveBadge() {
+  const items = getArchive();
+  const badge = document.getElementById('archive-count-badge');
+  if (items.length > 0) {
+    badge.textContent = items.length;
+    badge.style.display = 'inline-block';
+  } else {
+    badge.style.display = 'none';
+  }
+}
+
+function toggleArchive() {
+  const drawer = document.getElementById('archive-drawer');
+  const overlay = document.getElementById('archive-overlay');
+  const isOpen = drawer.classList.contains('open');
+  drawer.classList.toggle('open', !isOpen);
+  overlay.classList.toggle('show', !isOpen);
+  if (!isOpen) renderArchiveList();
+}
+
+function filterArchive(el) {
+  document.querySelectorAll('.archive-filter').forEach(f => f.classList.remove('active'));
+  el.classList.add('active');
+  currentArchiveFilter = el.dataset.filter;
+  renderArchiveList();
+}
+
+function saveToArchive(loadedResults) {
+  const r = loadedResults || results;
+  if (!r || Object.keys(r).length === 0) return;
+
+  const type = document.getElementById('f-type').value || 'Objekt';
+  const location = document.getElementById('f-location').value || '';
+  const price = document.getElementById('f-price').value || '';
+  const langs = Object.keys(r);
+  const firstLang = langs[0];
+  const title = r[firstLang]?.title || `${type} — ${location}`;
+
+  const item = {
+    id: Date.now(),
+    title,
+    type,
+    location,
+    price,
+    langs,
+    results: r,
+    status: 'entwurf',
+    createdAt: new Date().toLocaleDateString('de-CH', { day: '2-digit', month: '2-digit', year: 'numeric' }),
+    formData: {
+      type: document.getElementById('f-type').value,
+      location: document.getElementById('f-location').value,
+      price: document.getElementById('f-price').value,
+      size: document.getElementById('f-size').value,
+      rooms: document.getElementById('f-rooms').value,
+      year: document.getElementById('f-year').value,
+      highlights: document.getElementById('f-highlights').value,
+    }
+  };
+
+  const archive = getArchive();
+  archive.unshift(item);
+  if (archive.length > 50) archive.pop(); // max 50
+  saveArchive(archive);
+
+  // Flash feedback
+  const btn = document.querySelector('.save-archive-btn');
+  if (btn) {
+    btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Gespeichert!`;
+    btn.style.color = '#15803d';
+    btn.style.borderColor = '#86efac';
+    btn.style.background = 'rgba(21,128,61,0.06)';
+    setTimeout(() => {
+      btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 8v13H3V8"/><rect x="1" y="3" width="22" height="5" rx="1"/><line x1="10" y1="12" x2="14" y2="12"/></svg> Im Archiv speichern`;
+      btn.style.color = '';
+      btn.style.borderColor = '';
+      btn.style.background = '';
+    }, 2000);
+  }
+}
+
+function renderArchiveList() {
+  const list = document.getElementById('archive-list');
+  const empty = document.getElementById('archive-empty');
+  let items = getArchive();
+
+  if (currentArchiveFilter !== 'all') {
+    items = items.filter(i => i.status === currentArchiveFilter);
+  }
+
+  if (items.length === 0) {
+    list.innerHTML = '';
+    list.appendChild(empty);
+    empty.style.display = 'flex';
+    return;
+  }
+
+  const langEmojis = { de: '🇩🇪', en: '🇬🇧', ar: '🇦🇪', fr: '🇫🇷' };
+  const statusLabels = {
+    entwurf: { label: 'Entwurf', cls: 'status-entwurf' },
+    aktiv: { label: 'In Vermarktung', cls: 'status-aktiv' },
+    verkauft: { label: 'Verkauft', cls: 'status-verkauft' }
+  };
+
+  list.innerHTML = items.map(item => {
+    const st = statusLabels[item.status] || statusLabels.entwurf;
+    const langTags = (item.langs || []).map(l => `<span class="archive-lang-tag">${langEmojis[l] || l}</span>`).join('');
+    return `
+    <div class="archive-item" id="arch-${item.id}">
+      <div class="archive-item-top">
+        <div class="archive-item-title">${item.title}</div>
+        <select class="status-tag ${st.cls}" onchange="updateStatus(${item.id}, this.value)" onclick="event.stopPropagation()">
+          <option value="entwurf" ${item.status==='entwurf'?'selected':''}>Entwurf</option>
+          <option value="aktiv" ${item.status==='aktiv'?'selected':''}>In Vermarktung</option>
+          <option value="verkauft" ${item.status==='verkauft'?'selected':''}>Verkauft</option>
+        </select>
+      </div>
+      <div class="archive-item-meta">${item.location || ''} ${item.price ? '· ' + item.price : ''} · ${item.createdAt}</div>
+      <div class="archive-item-bottom">
+        <div class="archive-item-langs">${langTags}</div>
+        <div class="archive-actions">
+          <button class="archive-action-btn" onclick="loadFromArchive(${item.id})">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            Öffnen
+          </button>
+          <button class="archive-action-btn" onclick="duplicateFromArchive(${item.id})">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            Duplizieren
+          </button>
+          <button class="archive-action-btn del" onclick="deleteFromArchive(${item.id})">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function updateStatus(id, newStatus) {
+  const archive = getArchive();
+  const item = archive.find(i => i.id === id);
+  if (!item) return;
+  item.status = newStatus;
+  saveArchive(archive);
+  // Update the select styling
+  const sel = document.querySelector(`#arch-${id} select`);
+  if (sel) {
+    sel.className = `status-tag status-${newStatus}`;
+  }
+}
+
+function loadFromArchive(id) {
+  const archive = getArchive();
+  const item = archive.find(i => i.id === id);
+  if (!item) return;
+
+  // Load form data
+  if (item.formData) {
+    ['type','location','price','size','rooms','year','highlights'].forEach(k => {
+      const el = document.getElementById('f-' + k);
+      if (el && item.formData[k] !== undefined) el.value = item.formData[k];
+    });
+  }
+
+  // Load results
+  results = item.results;
+  activeLang = Object.keys(results)[0];
+  editMode = false;
+  const toggle = document.getElementById('edit-toggle');
+  const label = document.getElementById('edit-toggle-label');
+  if (toggle) toggle.classList.remove('active');
+  if (label) label.textContent = 'Bearbeiten';
+
+  // Update lang pills
+  document.querySelectorAll('[data-lang]').forEach(p => p.classList.remove('active'));
+  (item.langs || []).forEach(l => {
+    const p = document.querySelector(`[data-lang="${l}"]`);
+    if (p) p.classList.add('active');
+  });
+  selectedLangs = item.langs || ['de'];
+
+  renderResults();
+  setState('result');
+  toggleArchive();
+}
+
+function duplicateFromArchive(id) {
+  const archive = getArchive();
+  const item = archive.find(i => i.id === id);
+  if (!item) return;
+
+  // Load form data only (not results — user generates fresh)
+  if (item.formData) {
+    ['type','location','price','size','rooms','year','highlights'].forEach(k => {
+      const el = document.getElementById('f-' + k);
+      if (el && item.formData[k] !== undefined) el.value = item.formData[k];
+    });
+  }
+  toggleArchive();
+  // Flash the generate button
+  const btn = document.getElementById('gen-btn');
+  btn.style.background = '#9D7A3A';
+  setTimeout(() => btn.style.background = '', 800);
+}
+
+function deleteFromArchive(id) {
+  let archive = getArchive();
+  archive = archive.filter(i => i.id !== id);
+  saveArchive(archive);
+  renderArchiveList();
+}
+
+// Auto-save when results come in
+function autoSaveToArchive() {
+  if (results && Object.keys(results).length > 0) {
+    saveToArchive(results);
+  }
+}
+
+function handlePhotoDrop(e) {
+  e.preventDefault();
+  document.getElementById('photo-upload-area').classList.remove('dragover');
+  const files = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/'));
+  loadPhotos(files);
+}
+
+function handlePhotos(e) {
+  loadPhotos(Array.from(e.target.files));
+}
+
+function loadPhotos(files) {
+  const remaining = 20 - photoDataUrls.length;
+  const toLoad = files.slice(0, remaining);
+  let loaded = 0;
+  toLoad.forEach(file => {
+    const reader = new FileReader();
+    reader.onload = ev => {
+      photoDataUrls.push(ev.target.result);
+      loaded++;
+      if (loaded === toLoad.length) renderPhotoGrid();
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function removePhoto(idx) {
+  photoDataUrls.splice(idx, 1);
+  renderPhotoGrid();
+}
+
+function renderPhotoGrid() {
+  const grid = document.getElementById('photo-grid');
+  const hint = document.getElementById('photo-upload-hint');
+  const count = document.getElementById('photo-count');
+  if (photoDataUrls.length === 0) {
+    grid.innerHTML = '';
+    hint.style.display = 'block';
+    count.textContent = '';
+    return;
+  }
+  hint.style.display = 'none';
+  count.textContent = `${photoDataUrls.length} von 20 Fotos hochgeladen`;
+  grid.innerHTML = photoDataUrls.map((url, i) => `
+    <div class="photo-thumb ${i === 0 ? 'main-photo' : ''}">
+      <img src="${url}" alt="Foto ${i+1}">
+      <button class="photo-remove" onclick="removePhoto(${i})" title="Entfernen">✕</button>
+    </div>`).join('');
+}
+
+const langLabels = { de: '🇩🇪 Deutsch', en: '🇬🇧 English', ar: '🇦🇪 عربي', fr: '🇫🇷 Français' };
+
+const loadingMessages = [
+  'KI analysiert Objektdaten…',
+  'Luxus-Tonalität wird kalibriert…',
+  'Exposé wird verfasst…',
+  'Sprachversionen werden erstellt…',
+  'Letzte Verfeinerungen…',
+];
+
+const toneDescriptions = {
+  'ultra-premium': 'ultra-luxuriös, poetisch und exklusiv — angesprochen werden ultra-high-net-worth individuals (UHNWI). Verwende elegante, evokative Sprache mit gehobenen Formulierungen.',
+  'investment': 'nüchtern, diskret und investment-fokussiert — betone Wertstabilität, Lage, Rendite-Potenzial und Kapitalschutz. Keine übertriebenen Superlative.',
+  'lifestyle': 'emotional und lifestyle-orientiert — male ein lebendiges Bild des Lebensgefühls, der Erlebnisse und Möglichkeiten, die dieses Objekt bietet.',
+  'discreet': 'sehr diskret und äusserst zurückhaltend — wenige Worte, maximale Eleganz. Kein Superlativ, keine Marketing-Floskeln. Für kennerschaftliche Klientel.',
+};
+
+function toggleLang(el) {
+  const lang = el.dataset.lang;
+  if (el.classList.contains('active')) {
+    if (selectedLangs.length <= 1) return;
+    el.classList.remove('active');
+    selectedLangs = selectedLangs.filter(l => l !== lang);
+  } else {
+    el.classList.add('active');
+    if (!selectedLangs.includes(lang)) selectedLangs.push(lang);
+  }
+}
+
+function selectPersona(el) {
+  document.querySelectorAll('[data-persona]').forEach(p => {
+    p.classList.remove('gold-active', 'active');
+  });
+  el.classList.add('gold-active');
+  selectedPersona = el.dataset.persona;
+}
+
+function selectTone(el) {
+  document.querySelectorAll('[data-tone]').forEach(p => {
+    p.classList.remove('gold-active', 'active');
+    p.classList.add('pill');
+  });
+  el.classList.add('gold-active');
+  selectedTone = el.dataset.tone;
+}
+
+function buildPrompt() {
+  const type     = document.getElementById('f-type').value;
+  const location = document.getElementById('f-location').value;
+  const price    = document.getElementById('f-price').value;
+  const size     = document.getElementById('f-size').value;
+  const rooms    = document.getElementById('f-rooms').value;
+  const year     = document.getElementById('f-year').value;
+  const highl    = document.getElementById('f-highlights').value;
+
+  const personaDescriptions = {
+    'allgemein': 'für ein breites, wohlhabendes Publikum — universell ansprechend, elegant und professionell.',
+    'gcc': 'speziell für arabischsprachige Käufer aus dem GCC-Raum (Dubai, Abu Dhabi, Katar). Betone Privatsphäre, Sicherheit, Exklusivität, Investitionsschutz und die Stabilität der Schweiz. Formell und respektvoll.',
+    'expat': 'für internationale Expats die in die Schweiz ziehen. Betone Lebensqualität, internationale Schulen, Erreichbarkeit, Work-Life-Balance und den kosmopolitischen Charakter der Lage.',
+    'familie': 'für vermögende Familien mit Kindern. Betone Raumangebot, Sicherheit, Schulen in der Nähe, Aussenbereich, Gemeinschaft und Langfristigkeit.',
+    'investor': 'für renditeorientierte Investoren. Betone Wertstabilität, Lagequalität, Renditepotenzial, Vermietbarkeit und Kapitalschutz. Sachlich, präzise, zahlenorientiert.'
+  };
+  const personaContext = personaDescriptions[selectedPersona] || personaDescriptions['allgemein'];
+  const langKeys  = selectedLangs.join(', ');
+
+  return `You are a world-class luxury real estate copywriter specializing in Swiss premium properties. 
+Create a professional property exposé based on these details:
+
+Property type: ${type}
+Location: ${location}
+Price: ${price}
+Living area: ${size}
+Rooms: ${rooms}
+Year / renovation: ${year}
+Key features: ${highl}
+Tone: ${toneDescriptions[selectedTone]}
+Target buyer persona: ${personaContext}
+
+Generate the exposé in: ${langNames}
+
+Respond ONLY with a valid JSON object — no markdown, no preamble, no explanation. Use this exact structure:
+{
+  "de": { "title": "...", "subtitle": "...", "body": "..." },
+  "en": { "title": "...", "subtitle": "...", "body": "..." }
+}
+
+Only include keys for the requested languages: ${langKeys}
+
+Rules:
+- title: evocative headline, max 10 words in the target language
+- subtitle: location + essence, max 8 words
+- body: 3 rich paragraphs (total ~220 words per language), pure flowing prose — no bullet points, no markdown
+- For Arabic (key "ar"): write naturally in Arabic, formal register, right-to-left
+- For French (key "fr"): formal, elegant French
+- Reflect the requested tone precisely throughout`;
+}
+
+function setState(state) {
+  document.getElementById('empty-state').style.display    = state === 'empty'   ? 'flex' : 'none';
+  document.getElementById('loading-state').style.display  = state === 'loading' ? 'flex' : 'none';
+  document.getElementById('error-wrap').style.display     = state === 'error'   ? 'flex' : 'none';
+  document.getElementById('output-content').style.display = state === 'result'  ? 'flex' : 'none';
+}
+
+async function generate() {
+  if (selectedLangs.length === 0) return;
+
+  const btn = document.getElementById('gen-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<div class="spinner"></div> Generiere…';
+
+  setState('loading');
+  document.getElementById('demo-banner').style.display = 'none';
+
+  let msgIdx = 0;
+  const loadEl = document.getElementById('loading-text');
+  const msgInterval = setInterval(() => {
+    msgIdx = (msgIdx + 1) % loadingMessages.length;
+    loadEl.style.opacity = '0';
+    setTimeout(() => { loadEl.textContent = loadingMessages[msgIdx]; loadEl.style.opacity = '1'; }, 200);
+  }, 2000);
+
+  try {
+    const res = await fetch('/api/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        messages: [{ role: 'user', content: buildPrompt() }]
+      })
+    });
+
+    const data = await res.json();
+
+    if (data.error) {
+      // If no credits — use demo mode
+      if (data.error.message && data.error.message.includes('credit')) {
+        results = getDemoResults(selectedLangs);
+        activeLang = Object.keys(results)[0];
+        editMode = false;
+        const toggle = document.getElementById('edit-toggle');
+        const label = document.getElementById('edit-toggle-label');
+        if (toggle) toggle.classList.remove('active');
+        if (label) label.textContent = 'Bearbeiten';
+        clearInterval(msgInterval);
+        renderResults();
+        setState('result');
+        autoSaveToArchive();
+        // Show demo banner
+        document.getElementById('demo-banner').style.display = 'flex';
+        return;
+      }
+      throw new Error(data.error.message || 'API-Fehler');
+    }
+
+    const raw = (data.content || []).map(b => b.text || '').join('');
+    const match = raw.match(/\{[\s\S]*\}/);
+    if (!match) throw new Error('Ungültige KI-Antwort. Bitte erneut versuchen.');
+
+    results = JSON.parse(match[0]);
+    activeLang = Object.keys(results)[0];
+    editMode = false;
+    const toggle = document.getElementById('edit-toggle');
+    const label = document.getElementById('edit-toggle-label');
+    if (toggle) { toggle.classList.remove('active'); }
+    if (label) { label.textContent = 'Bearbeiten'; }
+
+    clearInterval(msgInterval);
+    renderResults();
+    setState('result');
+    autoSaveToArchive();
+
+  } catch (err) {
+    clearInterval(msgInterval);
+    document.getElementById('error-box').innerHTML =
+      '<strong>Fehler beim Generieren</strong><br><br>' + (err.message || 'Unbekannter Fehler.') +
+      '<br><br>Bitte versuchen Sie es erneut.';
+    setState('error');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> Exposé generieren`;
+  }
+}
+
+function renderResults() {
+  const tabs = document.getElementById('lang-tabs');
+  tabs.innerHTML = Object.keys(results).map((lang, i) => `
+    <div class="lang-tab ${i === 0 ? 'active' : ''}" data-lang="${lang}" onclick="switchTab(this,'${lang}')">
+      ${langLabels[lang] || lang}
+    </div>`).join('');
+  renderExpose(activeLang);
+}
+
+function switchTab(el, lang) {
+  document.querySelectorAll('.lang-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  activeLang = lang;
+  renderExpose(lang);
+}
+
+function getDemoResults(langs) {
+  const type     = document.getElementById('f-type').value || 'Penthouse-Wohnung';
+  const location = document.getElementById('f-location').value || 'Zürich, Seefeld';
+  const price    = document.getElementById('f-price').value || 'CHF 4.2 Mio.';
+  const size     = document.getElementById('f-size').value || '320 m²';
+  const rooms    = document.getElementById('f-rooms').value || '5.5';
+  const highl    = document.getElementById('f-highlights').value || 'Seesicht, Dachterrasse, Concierge';
+
+  const personaTexts = {
+    'allgemein': `Selten gelingt es, Urbanität und Privatheit so vollkommen zu vereinen. Diese Liegenschaft bietet nicht nur ein Zuhause, sondern eine Lebenshaltung — für Menschen, die das Beste schätzen, was die Schweiz zu bieten hat.`,
+    'gcc': `هذا الكيان النادر يجمع بين الخصوصية المطلقة والأمان الذي توفره سويسرا. استثمار آمن في قلب أوروبا — للعائلات الكريمة التي تبحث عن الأفضل.`,
+    'expat': `A perfect base for international professionals: world-class infrastructure, top international schools nearby, and the cosmopolitan spirit that ${location} is renowned for.`,
+    'familie': `Grosszügige Raumaufteilung für die ganze Familie — mit sicherem Umfeld, erstklassigen Schulen in unmittelbarer Nähe und einem Zuhause, das mit Ihrer Familie wächst.`,
+    'investor': `Erstklassige Lage mit nachgewiesener Wertstabilität. Hohe Vermietbarkeit durch internationale Nachfrage. Ein Kapitalschutz-Investment der Extraklasse in einem der stabilsten Märkte Europas.`
+  };
+  const personaBody = personaTexts[selectedPersona] || personaTexts['allgemein'];
+  const demo = {
+    de: {
+      title: `Exklusive ${type} in ${location}`,
+      subtitle: `${location.toUpperCase()} · ${price}`,
+      body: `Erleben Sie das Besondere: Diese einzigartige ${type} in ${location} vereint architektonische Eleganz mit aussergewöhnlichem Komfort. Auf ${size} edler Wohnfläche erwartet Sie ein Refugium der Extraklasse — geprägt von ${highl}.\n\nDie ${rooms} Zimmer sind mit erlesenen Materialien und höchster Handwerkskunst ausgestattet. Jedes Detail spricht eine Sprache der Exklusivität — von den raumhohen Fenstern bis zu den massgefertigten Einbauten. Ein Objekt, das keine Kompromisse kennt.\n\n${personaBody}`
+    },
+    en: {
+      title: `Exclusive ${type} in ${location}`,
+      subtitle: `${location.toUpperCase()} · ${price}`,
+      body: `Experience the extraordinary: This exceptional ${type} in ${location} seamlessly blends architectural elegance with unparalleled comfort. Across ${size} of refined living space, a sanctuary of the highest calibre awaits — defined by ${highl}.\n\nThe ${rooms} rooms are appointed with the finest materials and masterful craftsmanship. Every detail speaks a language of exclusivity — from the floor-to-ceiling windows to the bespoke built-ins. A property that accepts no compromises.\n\nRarely does one find such a perfect balance of urban vibrancy and private retreat. This residence offers not merely a home, but a way of life — for those who appreciate the very finest that Switzerland has to offer.`
+    },
+    ar: {
+      title: `${type} حصرية في ${location}`,
+      subtitle: `${location.toUpperCase()} · ${price}`,
+      body: `اختبر التميز الحقيقي في هذه ${type} الاستثنائية في ${location}، حيث يلتقي الأناقة المعمارية بالرفاهية التي لا مثيل لها. على مساحة ${size} من المعيشة الراقية، ينتظرك ملاذ من الدرجة الأولى.\n\nتتميز هذه الوحدة بـ ${highl}، مع ${rooms} غرف مصممة بأرقى المواد وأعلى مستويات الحرفية. كل تفصيل يتحدث بلغة الحصرية — من النوافذ الشاهقة إلى التجهيزات المخصصة.\n\nهذه ليست مجرد منزل، بل أسلوب حياة — للذين يقدّرون أرقى ما تقدمه سويسرا.`
+    },
+    fr: {
+      title: `${type} exclusive à ${location}`,
+      subtitle: `${location.toUpperCase()} · ${price}`,
+      body: `Vivez l'exceptionnel dans ce ${type} d'exception à ${location}, où l'élégance architecturale rencontre un confort sans égal. Sur ${size} d'espace de vie raffiné, un sanctuaire de la plus haute facture vous attend — caractérisé par ${highl}.\n\nLes ${rooms} pièces sont aménagées avec les matériaux les plus fins et un savoir-faire incomparable. Chaque détail parle un langage d'exclusivité — des fenêtres du sol au plafond aux éléments sur mesure.\n\nRarement une propriété offre un tel équilibre entre vie urbaine et retraite privée. Cette résidence n'est pas simplement un foyer, mais un art de vivre — pour ceux qui apprécient ce que la Suisse a de meilleur à offrir.`
+    }
+  };
+
+  const out = {};
+  langs.forEach(l => { if (demo[l]) out[l] = demo[l]; });
+  if (Object.keys(out).length === 0) out['de'] = demo['de'];
+  return out;
+}
+
+let editMode = false;
+let saveTimer = null;
+
+function toggleEditMode() {
+  editMode = !editMode;
+  const toggle = document.getElementById('edit-toggle');
+  const label = document.getElementById('edit-toggle-label');
+  toggle.classList.toggle('active', editMode);
+  label.textContent = editMode ? 'Bearbeitung aktiv' : 'Bearbeiten';
+  renderExpose(activeLang);
+  if (editMode) {
+    setTimeout(() => {
+      const body = document.getElementById('expose-body-edit');
+      if (body) { body.focus(); placeCaretAtEnd(body); }
+    }, 50);
+  }
+}
+
+function placeCaretAtEnd(el) {
+  const range = document.createRange();
+  const sel = window.getSelection();
+  range.selectNodeContents(el);
+  range.collapse(false);
+  sel.removeAllRanges();
+  sel.addRange(range);
+}
+
+function syncEdits(field, lang) {
+  const el = document.getElementById('expose-' + field + '-edit');
+  if (!el || !results[lang]) return;
+  results[lang][field] = el.innerText;
+  // word count
+  const body = results[lang].body || '';
+  const wc = body.trim().split(/\s+/).filter(Boolean).length;
+  document.getElementById('word-count').textContent = `· ${wc} Wörter`;
+  // saved flash
+  clearTimeout(saveTimer);
+  const flash = document.getElementById('saved-flash');
+  saveTimer = setTimeout(() => {
+    flash.classList.add('show');
+    setTimeout(() => flash.classList.remove('show'), 1400);
+  }, 600);
+}
+
+function renderExpose(lang) {
+  const d = results[lang];
+  if (!d) return;
+  const rtl = lang === 'ar';
+  const dir = rtl ? 'direction:rtl;text-align:right' : '';
+  const ce = editMode ? 'contenteditable="true" spellcheck="true"' : '';
+
+  document.getElementById('expose-wrap').innerHTML = `
+    <div style="${dir}">
+      <div class="expose-title" id="expose-title-edit" ${ce}
+        ${editMode ? `oninput="syncEdits('title','${lang}')"` : ''}
+      >${d.title || ''}</div>
+      <div class="expose-subtitle" id="expose-subtitle-edit" ${ce}
+        ${editMode ? `oninput="syncEdits('subtitle','${lang}')"` : ''}
+      >${d.subtitle || ''}</div>
+      <div class="expose-rule"></div>
+      <div class="expose-body" id="expose-body-edit" ${ce}
+        ${editMode ? `oninput="syncEdits('body','${lang}')"` : ''}
+      >${(d.body || '').replace(/\n\n/g, '\n\n')}</div>
+    </div>`;
+
+  // word count
+  const wc = (d.body || '').trim().split(/\s+/).filter(Boolean).length;
+  document.getElementById('word-count').textContent = `· ${wc} Wörter`;
+}
+
+function handleLogo(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    logoDataUrl = ev.target.result;
+    const preview = document.getElementById('logo-preview');
+    preview.src = logoDataUrl;
+    preview.style.display = 'block';
+    document.getElementById('logo-upload-label').style.display = 'none';
+  };
+  reader.readAsDataURL(file);
+}
+
+function exportPDF() {
+  const d = results[activeLang];
+  if (!d) return;
+
+  // Sync any live edits from DOM
+  const titleEl = document.getElementById('expose-title-edit');
+  const subtitleEl = document.getElementById('expose-subtitle-edit');
+  const bodyEl = document.getElementById('expose-body-edit');
+  if (titleEl) d.title = titleEl.innerText;
+  if (subtitleEl) d.subtitle = subtitleEl.innerText;
+  if (bodyEl) d.body = bodyEl.innerText;
+
+  const btn = document.getElementById('pdf-btn');
+  btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation:spin .75s linear infinite"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg> Wird erstellt…`;
+  btn.disabled = true;
+
+  // Fill PDF template
+  const rtl = activeLang === 'ar';
+  document.getElementById('pdf-title').textContent = d.title || '';
+  document.getElementById('pdf-title').style.direction = rtl ? 'rtl' : 'ltr';
+  document.getElementById('pdf-subtitle').textContent = d.subtitle || '';
+  document.getElementById('pdf-body').textContent = d.body || '';
+  document.getElementById('pdf-body').style.direction = rtl ? 'rtl' : 'ltr';
+  document.getElementById('pdf-body').style.textAlign = rtl ? 'right' : 'left';
+
+  // Photos
+  const photosMain = document.getElementById('pdf-photos-main');
+  const photosGrid = document.getElementById('pdf-photos-grid');
+  photosMain.innerHTML = '';
+  photosGrid.innerHTML = '';
+  if (photoDataUrls.length > 0) {
+    photosMain.innerHTML = `<img src="${photoDataUrls[0]}" class="pdf-photo-main" alt="Hauptfoto">`;
+    if (photoDataUrls.length > 1) {
+      const row1 = photoDataUrls.slice(1, 5);
+      const rest = photoDataUrls.slice(5);
+      let gridHtml = `<div class="pdf-photo-grid" style="grid-template-columns:repeat(${row1.length},1fr);margin-bottom:7mm">${row1.map((u,i) => `<img src="${u}" alt="Foto ${i+2}">`).join('')}</div>`;
+      if (rest.length > 0) {
+        const cols = Math.min(rest.length, 4);
+        gridHtml += `<div style="page-break-before:always"></div><div class="pdf-photo-grid" style="grid-template-columns:repeat(${cols},1fr);margin-top:10mm">${rest.map((u,i) => `<img src="${u}" alt="Foto ${i+6}">`).join('')}</div>`;
+      }
+      photosGrid.innerHTML = gridHtml;
+    }
+  }
+
+  // Logo
+  const logoImg = document.getElementById('pdf-logo-img');
+  const logoText = document.getElementById('pdf-logo-text');
+  if (logoDataUrl) {
+    logoImg.src = logoDataUrl;
+    logoImg.style.display = 'block';
+    logoText.style.display = 'none';
+  } else {
+    logoImg.style.display = 'none';
+    logoText.style.display = 'block';
+  }
+
+  // Agent name
+  const agent = document.getElementById('f-agent').value;
+  document.getElementById('pdf-agent-footer').textContent = agent || '';
+
+  // Details grid
+  const price = document.getElementById('f-price').value;
+  const size = document.getElementById('f-size').value;
+  const rooms = document.getElementById('f-rooms').value;
+  const location = document.getElementById('f-location').value;
+  document.getElementById('pdf-details').innerHTML = `
+    <div class="pdf-detail-item"><div class="pdf-detail-val">${price}</div><div class="pdf-detail-lbl">Kaufpreis</div></div>
+    <div class="pdf-detail-item"><div class="pdf-detail-val">${size}</div><div class="pdf-detail-lbl">Wohnfläche</div></div>
+    <div class="pdf-detail-item"><div class="pdf-detail-val">${rooms}</div><div class="pdf-detail-lbl">Zimmer</div></div>
+    <div class="pdf-detail-item"><div class="pdf-detail-val">${location}</div><div class="pdf-detail-lbl">Standort</div></div>
+  `;
+
+  // Show template, generate, hide
+  const tpl = document.getElementById('pdf-template');
+  tpl.style.display = 'block';
+
+  const filename = `Expose_${(d.title || 'Expose').replace(/[^a-zA-Z0-9]/g, '_').substring(0, 40)}.pdf`;
+
+  html2pdf().set({
+    margin: 0,
+    filename,
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2, useCORS: true, backgroundColor: '#F7F4EE' },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+  }).from(document.getElementById('pdf-page')).save().then(() => {
+    tpl.style.display = 'none';
+    btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg> PDF exportieren`;
+    btn.disabled = false;
+  });
+}
+
+function copyText() {
+  const d = results[activeLang];
+  if (!d) return;
+  // Use live DOM content if edit mode is on
+  const titleEl = document.getElementById('expose-title-edit');
+  const subtitleEl = document.getElementById('expose-subtitle-edit');
+  const bodyEl = document.getElementById('expose-body-edit');
+  const title = (titleEl ? titleEl.innerText : d.title) || '';
+  const subtitle = (subtitleEl ? subtitleEl.innerText : d.subtitle) || '';
+  const body = (bodyEl ? bodyEl.innerText : d.body) || '';
+  const text = [title, subtitle, '', body].join('\n');
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('copy-btn');
+    btn.classList.add('copied');
+    btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Kopiert!`;
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Text kopieren`;
+    }, 2200);
+  });
+}
+// Init
+updateArchiveBadge();
+</script>
+</body>
+</html>
